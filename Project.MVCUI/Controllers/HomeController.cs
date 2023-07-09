@@ -27,6 +27,7 @@ namespace Project.MVCUI.Controllers
             {
                 Session["admin"] = _aURep.FirstOrDefault(x => x.UserName == appUser.UserName && x.Password == appUser.PassWord);
                 return RedirectToAction("AppUserList");
+                //
             }
             else if (_aURep.Any(x => x.UserName == appUser.UserName && x.Password == appUser.PassWord && x.Role == UserRole.Member))
             {
