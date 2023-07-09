@@ -41,10 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PageVMs\AddUpdateAdminAppUserPageVM.cs" />
+    <Compile Include="PageVMs\AddUpdateAdminCategoryPageVM.cs" />
+    <Compile Include="PageVMs\ListAdminAppUserPageVM.cs" />
+    <Compile Include="PageVMs\ListAdminCategoryPageVM.cs" />
     <Compile Include="PageVMs\LoginPageVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PureVMs\AdminAppUserVM.cs" />
     <Compile Include="PureVMs\AdminCategoryVM.cs" />
+    <Compile Include="PureVMs\AdminOrderVM.cs" />
     <Compile Include="PureVMs\AdminProductVM.cs" />
     <Compile Include="PureVMs\AppUserProfileVM.cs" />
     <Compile Include="PureVMs\AppUserVM.cs" />

@@ -116,7 +116,7 @@ namespace Project.BLL.GenericRepository.BaseRep
             item.ModifiedDate = DateTime.Now;
             T toBeUpdated = Find(item.ID);
             _db.Entry(toBeUpdated).CurrentValues.SetValues(item);
-            _db.SaveChanges();
+            Save();
         }
 
         public void UpdateRange(List<T> list)

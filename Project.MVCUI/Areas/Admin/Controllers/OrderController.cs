@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Project.BLL.GenericRepository.ConcRep;
+using Project.VM.PageVMs;
+using Project.VM.PureVMs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,9 +12,25 @@ namespace Project.MVCUI.Areas.Admin.Controllers
     public class OrderController : Controller
     {
         // GET: Admin/Order
-        public ActionResult Index()
+        OrderRepository _oRep;
+        public OrderController()
         {
-            return View();
+            _oRep = new OrderRepository();
+        }
+        public ActionResult ListOrders()
+        {
+            ListAdminOrderPageVM lAOPVM = new ListAdminOrderPageVM
+            {
+                AdminOrders = _oRep.Select(x => new AdminOrderVM
+                {
+                    ID = x.ID,
+                    ShippingAdress = x.ShippingAddress,
+                    TotalPrice = x.TotalPrice
+
+
+                }).ToList(),
+            };
+            return View(lAOPVM);
         }
     }
 }

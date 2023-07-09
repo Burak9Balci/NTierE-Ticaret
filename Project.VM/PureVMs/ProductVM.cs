@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Project.VM.PureVMs
 {
-    internal class ProductVM
+    public class ProductVM
     {
     }
 }

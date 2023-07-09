@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Project.VM.PureVMs
 {
-    internal class AdminCategoryVM
+    public class AdminCategoryVM
     {
+        public int ID { get; set; }
+        public string CategoryName { get; set; }
+        public string Description { get; set; }
     }
 }
