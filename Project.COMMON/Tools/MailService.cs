@@ -25,7 +25,7 @@ namespace Project.COMMON.Tools
                 Credentials = new NetworkCredential(senderEmail.Address,password)
             };
 
-            using (MailMessage message = new MailMessage()
+            using (MailMessage message = new MailMessage(senderEmail, receiverEmail)
             {
               Subject = subject,
               Body = body,

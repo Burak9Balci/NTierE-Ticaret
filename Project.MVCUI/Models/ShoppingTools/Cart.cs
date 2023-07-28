@@ -27,7 +27,6 @@ namespace Project.MVCUI.Models.ShoppingTools
                 return;
             }
             _sepetim.Add(item.ID, item);
-
         }
         public void SepettenCikar(int id)
         {

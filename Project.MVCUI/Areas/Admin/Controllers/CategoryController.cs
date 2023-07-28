@@ -1,6 +1,8 @@
 ﻿using Project.BLL.GenericRepository.ConcRep;
 using Project.ENTITIES.Models;
-using Project.VM.PageVMs;
+using Project.MVCUI.Areas.Admin.Data.AdminPageVMs.AddUpdatePageVMs;
+using Project.MVCUI.Areas.Admin.Data.AdminPageVMs.ListPageVMs;
+
 using Project.VM.PureVMs;
 using System;
 using System.Collections.Generic;
@@ -18,25 +20,48 @@ namespace Project.MVCUI.Areas.Admin.Controllers
         {
             _cRep = new CategoryRepository();
         }
-        public ActionResult ListCategories()
+        public ActionResult ListCategories(int? id)
         {
-            ListAdminCategoryPageVM lCVM = new ListAdminCategoryPageVM
+            List<AdminCategoryVM> adminCategories;
+            if (id == null)
             {
-                AdminCategories = _cRep.Select(x => new AdminCategoryVM
+                adminCategories = _cRep.Select(x => new AdminCategoryVM
                 {
                     ID = x.ID,
                     CategoryName = x.CategoryName,
-                    Description = x.Description
+                    Description = x.Description,
+                    CreatedDate = x.CreatedDate,
+                    DeletedDate = x.DeletedDate,
+                    ModifiedDate = x.ModifiedDate,
+                    Status = x.Status,
 
+                }).ToList();
+            }
+            else
+            {
+                adminCategories = _cRep.Where(x =>x.ID == id).Select(x => new AdminCategoryVM
+                {
+                    ID = x.ID,
+                    CategoryName = x.CategoryName,
+                    Description = x.Description,
+                    CreatedDate = x.CreatedDate,
+                    DeletedDate = x.DeletedDate,
+                    ModifiedDate = x.ModifiedDate,
+                    Status = x.Status,
 
-                }).ToList()
+                }).ToList();
+            }
+            ListAdminCategoryPageVM lAC = new ListAdminCategoryPageVM
+            {
+                AdminCategories = adminCategories
             };
-            return View(lCVM);
+            return View(lAC);
         }
         public ActionResult AddCategory()
         {
             return View();
         }
+        [HttpPost]
         public ActionResult AddCategory(AdminCategoryVM adminCategory)
         {
             Category c = new Category
@@ -62,6 +87,7 @@ namespace Project.MVCUI.Areas.Admin.Controllers
             };
             return View(aUAC);
         }
+        [HttpPost]
         public ActionResult UpdateCategory(AdminCategoryVM adminCategory)
         {
             Category c = _cRep.Find(adminCategory.ID);

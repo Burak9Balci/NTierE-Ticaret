@@ -1,0 +1,51 @@
+﻿@model ListAdminAppUserPageVM
+@{
+    ViewBag.Title = "ListAppUser";
+}
+
+<script src="~/Areas/Admin/AdminScripts/AdminAppUserDTJ.js"></script>
+<div class="panel-body">
+    <div class="adv-table">
+        <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
+            <thead>
+                <tr>
+                    <th>Kategori ID</th>
+                    <th>Kullanici Adi</th>
+                    <th class="hidden-phone">Sifre</th>
+                    <th class="hidden-phone">Email</th>
+                    <th class="hidden-phone">Durum</th>
+                    <th class="hidden-phone">Yaratma Tarihi</th>
+                    <th class="hidden-phone">Silme Tarihi</th>
+                    <th class="hidden-phone">Güncelleme Tarihi</th>
+                    <th class="hidden-phone">Sil</th>
+                    <th class="hidden-phone">Ekle</th>
+                    <th class="hidden-phone">Kullanıcı Siparişleri</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (AdminAppUserVM item in Model.AdminAppUsers)
+                {
+                    <tr class="gradeX">
+                        <td>@item.ID</td>
+                        <td>@item.UserName</td>
+                        <td class="hidden-phone">@item.PassWord</td>
+                        <td class="hidden-phone">@item.Email</td>
+                        <td class="center hidden-phone">@item.Status</td>
+                        <td class="center hidden-phone">@item.CreatedDate</td>
+                        <td class="center hidden-phone">@item.DeletedDate</td>
+                        <td class="center hidden-phone">@item.ModifiedDate</td>
+                        <td class="center hidden-phone">@Html.ActionLink("Delete", "DeleteAppUser", new { id = item.ID }, new { @class = "btn btn-danger" })</td>
+                        <td class="center hidden-phone">@Html.ActionLink("Güncelle", "UpdateAppUser", new { id = item.ID }, new { @class = "btn btn-warning" })</td>
+                        <td class="center hidden-phone">@Html.ActionLink("Siparişler", "ListAppUserOrders", "Order", new { appUser = item.UserName }, new { @class = "btn btn-primary" })</td>
+                    </tr>
+                }
+
+
+
+
+            </tbody>
+        </table>
+
+    </div>
+</div>
+

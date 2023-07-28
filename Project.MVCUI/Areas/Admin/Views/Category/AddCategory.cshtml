@@ -1,0 +1,67 @@
+﻿@model AddUpdateAdminCategoryPageVM
+
+@{
+    ViewBag.Title = "AddCategory";
+}
+
+<style>
+    .genislik {
+        width: 300px;
+    }
+</style>
+
+@using (Html.BeginForm("AddCategory", "Category", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row">
+        <div class="col-sm-12">
+
+            <section class="panel">
+                <header class="panel-heading">
+                    Category Ekleme Sayfası
+                </header>
+
+                <div class="panel-body">
+
+
+                    <div class="form-group">
+                        <label class="col-sm-2">Category Name</label>
+                        <div class="col-sm-10">
+
+
+                            @Html.TextBoxFor(x => x.AdminCategory.CategoryName, new { @class = "form-control-genislik" })
+                        </div>
+                    </div>
+
+
+                    <br /> <br />
+
+                    <div class="form-group">
+                        <label class="col-sm-2">Description</label>
+                        <div class="col-sm-10">
+                            @Html.TextBoxFor(x => x.AdminCategory.Description, new { @class = "form-control-genislik" })
+                        </div>
+                    </div>
+                    <br /> <br />
+
+
+                    <div class="form-group">
+                        <label class="col-sm-2">İşlem:</label>
+                        <div class="col-sm-10">
+                            <button class="btn btn-primary">Ekle</button>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+        </div>
+    </div>
+
+
+
+}
+

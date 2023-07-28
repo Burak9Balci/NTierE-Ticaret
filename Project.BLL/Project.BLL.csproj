@@ -59,6 +59,7 @@
     <Compile Include="GenericRepository\ConcRep\OrderDetailRepository.cs" />
     <Compile Include="GenericRepository\ConcRep\OrderRepository.cs" />
     <Compile Include="GenericRepository\ConcRep\ProductRepository.cs" />
+    <Compile Include="GenericRepository\ConcRep\SupplierRepository.cs" />
     <Compile Include="GenericRepository\IntRep\IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

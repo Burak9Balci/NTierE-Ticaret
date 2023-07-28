@@ -19,7 +19,7 @@ namespace Project.DAL.Init
             //Admin
             AppUser au = new AppUser();
             au.UserName = "brk";
-            au.Password = DantexCrypt.Crypt("123");
+            au.Password = DanteCrypto.CrypHeaven("123");
             au.Email = "seksenler2011@hotmail.com";
             au.Role = UserRole.Admin;
             au.Active = true;

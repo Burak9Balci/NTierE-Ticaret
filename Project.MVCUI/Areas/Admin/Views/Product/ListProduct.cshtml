@@ -1,0 +1,61 @@
+﻿@model ListAdminProductPageVM
+@{
+    ViewBag.Title = "ListProduct";
+}
+
+<div class="panel-body">
+    <div class="adv-table">
+        <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
+            <thead>
+
+
+                <tr>
+                    <th>Ürün ID</th>
+                    <th>Ürün Ismi</th>
+                    <th class="hidden-phone">Ürün Fiyatı</th>
+                    <th class="hidden-phone">Ürün Stock</th>
+                    <th class="hidden-phone">Ürün Kategorisi</th>
+                    <th class="hidden-phone">Supplier</th>
+                    <th class="hidden-phone">Ürün Resmi</th>
+                    <th class="hidden-phone">Status</th>
+                    <th class="hidden-phone">Yaratma Tarihi</th>
+                    <th class="hidden-phone">Silme Tarihi</th>
+                    <th class="hidden-phone">Güncelleme Tarihi</th>
+                    <th class="hidden-phone">Sil</th>
+                    <th class="hidden-phone">Güncelle</th>
+                    <th class="hidden-phone">Ekle</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (AdminProductVM item in Model.AdminProducts)
+                {
+                    <tr class="gradeX">
+                        <td>@item.ID</td>
+                        <td>@item.ProductName</td>
+                        <td class="hidden-phone">@item.UnitPrice</td>
+                        <td class="center hidden-phone">@item.UnitInStock</td>
+                        <th class="center hidden-phone">@item.CategoryName</th>     
+                        <th class="center hidden-phone">@item.SupplierName</th>
+                        <td class="center hidden-phone"> <img width="30" height="30" title="@item.ProductName" src="@item.ImagePath" /></td>
+                        <td class="center hidden-phone">@item.Status</td>
+                        <td class="center hidden-phone">@item.CreatedDate</td>
+                        <td class="center hidden-phone">@item.DeletedDate</td>
+                        <td class="center hidden-phone">@item.ModifiedDate</td>
+                        <td class="center hidden-phone">@Html.ActionLink("Delete", "DeleteProduct", new { id = item.ID }, new { @class = "btn btn-danger" })</td>
+                        <td class="center hidden-phone">@Html.ActionLink("Güncelle", "UpdateProduct", new { id = item.ID }, new { @class = "btn btn-warning" })</td>
+                        <td class="center hidden-phone">@Html.ActionLink("Ürün Ekle", "AddProduct", new { id = item.ID }, new { @class = "btn btn-primary" })</td>
+
+                    </tr>
+                }
+
+
+
+
+            </tbody>
+        </table>
+
+    </div>
+</div>
+<script src="~/Areas/Admin/AdminScripts/AdminProductDTJ.js"></script>
+

@@ -8,5 +8,7 @@ namespace Project.VM.PureVMs
 {
     public class AppUserProfileVM
     {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     }
 }

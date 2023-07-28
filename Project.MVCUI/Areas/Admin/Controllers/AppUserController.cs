@@ -1,7 +1,8 @@
 ﻿using Project.BLL.GenericRepository.ConcRep;
 using Project.COMMON.Tools;
 using Project.ENTITIES.Models;
-using Project.VM.PageVMs;
+using Project.MVCUI.Areas.Admin.Data.AdminPageVMs.AddUpdatePageVMs;
+using Project.MVCUI.Areas.Admin.Data.AdminPageVMs.ListPageVMs;
 using Project.VM.PureVMs;
 using System;
 using System.Collections.Generic;
@@ -19,19 +20,46 @@ namespace Project.MVCUI.Areas.Admin.Controllers
         {
             _aURep = new AppUserRepository();
         }
-        public ActionResult ListAppUser()
+        public ActionResult ListAppUser(int? id)
         {
-            ListAdminAppUserPageVM aUVM = new ListAdminAppUserPageVM
+            List<AdminAppUserVM> adminApps;
+            if (id == null)
             {
-                AdminAppUsers = _aURep.Select(x => new AdminAppUserVM
+                adminApps = _aURep.Select(x => new AdminAppUserVM
+                {
+                  ID = x.ID,
+                  UserName = x.UserName,
+                  PassWord = x.Password,
+                  Email = x.Email,
+                  CreatedDate = x.CreatedDate,
+                  DeletedDate = x.DeletedDate,
+                  ModifiedDate = x.ModifiedDate,
+                  Status = x.Status,
+
+                }).ToList();
+
+            }
+            else
+            {
+                adminApps = _aURep.Where(x =>x.ID ==id).Select(x => new AdminAppUserVM
                 {
                     ID = x.ID,
                     UserName = x.UserName,
                     PassWord = x.Password,
+                    Email = x.Email,
+                    CreatedDate = x.CreatedDate,
+                    DeletedDate = x.DeletedDate,
+                    ModifiedDate = x.ModifiedDate,
                     Status = x.Status,
 
-                }).ToList(),
-            };
+                }).ToList();
+            }
+            
+           
+            ListAdminAppUserPageVM aUVM = new ListAdminAppUserPageVM
+            {
+                AdminAppUsers = adminApps
+            };    
             return View(aUVM);
         }
         public ActionResult AddAppUser()
@@ -44,7 +72,9 @@ namespace Project.MVCUI.Areas.Admin.Controllers
             AppUser aU = new AppUser
             {
                 UserName = appUser.UserName,
-                Password = DantexCrypt.Crypt(appUser.PassWord)
+                Password = DanteCrypto.CrypHeaven(appUser.PassWord),
+                Email = appUser.Email
+
             };
             _aURep.Add(aU);
             return RedirectToAction("ListAppUser");
@@ -58,12 +88,14 @@ namespace Project.MVCUI.Areas.Admin.Controllers
                     ID = id,
                     UserName = x.UserName,
                     PassWord = x.Password,
+                    Email = x.Email,
                     Status = x.Status,
 
                 }).FirstOrDefault(),
             };
             return View(aU);
         }
+        [HttpPost]
         public ActionResult UpdateAppUser(AdminAppUserVM appUser)
         {
             AppUser a = _aURep.Find(appUser.ID);
@@ -75,5 +107,6 @@ namespace Project.MVCUI.Areas.Admin.Controllers
             _aURep.Delete(_aURep.Find(id));
             return RedirectToAction("ListAppUser");
         }
+        
     }
 }
