@@ -9,7 +9,11 @@ namespace Project.COMMON.Tools
 {
     public static class DanteCrypto
     {
-
+        /// <summary>
+        ///  sifreyi cryptolar
+        /// </summary>
+        /// <param name="hayat"></param>
+        /// <returns></returns>
         public static string CrypHeaven(string hayat)
         {
             //String bir charlar arrayidir
@@ -72,6 +76,12 @@ namespace Project.COMMON.Tools
 
             return beden;
         }
+
+        /// <summary>
+        /// Criptolu sifreyi Normal hale ceker
+        /// </summary>
+        /// <param name="beden"></param>
+        /// <returns></returns>
         public static string CrypHell(string beden)
         {
             //Kullanma Kılvauzu
@@ -82,13 +92,13 @@ namespace Project.COMMON.Tools
             //ardından aydinlanma miktarini chara dönüştürüp ruhun bir parçasını elde ediyoruz
             //Ve son adım olarak ruhParçalarını döngüde birleştiriyoruz
             string ruh = "";
-            List<string> parts = Regex.Split(beden, @"(?<=[*_?])").ToList();
+            List<string> parts = Regex.Split(beden, @"(?<=[limbolustgluttonygreedangerheresyviolencefraudtreachery])").ToList();
             foreach (string item in parts)
             {
                 if (item.Contains("limbo"))
                 {
 
-                    string arinmis = item.TrimEnd('*');
+                    string arinmis = item.TrimEnd("limbo".ToCharArray());
 
                     int aydinlanmaMiktari = (Convert.ToInt32(arinmis) / 3) - 1;
                     string ruhParcasi = Convert.ToChar(aydinlanmaMiktari).ToString();
@@ -97,7 +107,7 @@ namespace Project.COMMON.Tools
                 else if (item.Contains("lust"))
                 {
 
-                    string arinmis = item.TrimEnd('*');
+                    string arinmis = item.TrimEnd("lust".ToCharArray());
 
                     int aydinlanmaMiktari = (Convert.ToInt32(arinmis) / 2) - 2;
                     string ruhParcasi = Convert.ToChar(aydinlanmaMiktari).ToString();
@@ -106,7 +116,7 @@ namespace Project.COMMON.Tools
                 else if (item.Contains("gluttony"))
                 {
 
-                    string arinmis = item.TrimEnd('*');
+                    string arinmis = item.TrimEnd("gluttony".ToCharArray());
 
                     int aydinlanmaMiktari = (Convert.ToInt32(arinmis) / 1) - 3;
                     string ruhParcasi = Convert.ToChar(aydinlanmaMiktari).ToString();
@@ -115,7 +125,7 @@ namespace Project.COMMON.Tools
                 else if (item.Contains("greed"))
                 {
 
-                    string arinmis = item.TrimEnd('*');
+                    string arinmis = item.TrimEnd("greed".ToCharArray());
 
                     int aydinlanmaMiktari = (Convert.ToInt32(arinmis) / 3) - 4;
                     string ruhParcasi = Convert.ToChar(aydinlanmaMiktari).ToString();
@@ -124,7 +134,7 @@ namespace Project.COMMON.Tools
                 else if (item.Contains("anger"))
                 {
 
-                    string arinmis = item.TrimEnd('*');
+                    string arinmis = item.TrimEnd("anger".ToCharArray());
 
                     int aydinlanmaMiktari = (Convert.ToInt32(arinmis) / 2) - 5;
                     string ruhParcasi = Convert.ToChar(aydinlanmaMiktari).ToString();
@@ -133,7 +143,7 @@ namespace Project.COMMON.Tools
                 else if (item.Contains("heresy"))
                 {
 
-                    string arinmis = item.TrimEnd('*');
+                    string arinmis = item.TrimEnd("heresy".ToCharArray());
 
                     int aydinlanmaMiktari = (Convert.ToInt32(arinmis) / 1) - 6;
                     string ruhParcasi = Convert.ToChar(aydinlanmaMiktari).ToString();
@@ -142,7 +152,7 @@ namespace Project.COMMON.Tools
                 else if (item.Contains("violence"))
                 {
 
-                    string arinmis = item.TrimEnd('*');
+                    string arinmis = item.TrimEnd("violence".ToCharArray());
 
                     int aydinlanmaMiktari = (Convert.ToInt32(arinmis) / 3) - 7;
                     string ruhParcasi = Convert.ToChar(aydinlanmaMiktari).ToString();
@@ -151,7 +161,7 @@ namespace Project.COMMON.Tools
                 else if (item.Contains("fraud"))
                 {
 
-                    string arinmis = item.TrimEnd('*');
+                    string arinmis = item.TrimEnd("fraud".ToCharArray());
 
                     int aydinlanmaMiktari = (Convert.ToInt32(arinmis) / 2) - 8;
                     string ruhParcasi = Convert.ToChar(aydinlanmaMiktari).ToString();
@@ -160,7 +170,7 @@ namespace Project.COMMON.Tools
                 else if (item.Contains("treachery"))
                 {
 
-                    string arinmis = item.TrimEnd('*');
+                    string arinmis = item.TrimEnd("treachery".ToCharArray());
 
                     int aydinlanmaMiktari = (Convert.ToInt32(arinmis) / 1) - 9;
                     string ruhParcasi = Convert.ToChar(aydinlanmaMiktari).ToString();

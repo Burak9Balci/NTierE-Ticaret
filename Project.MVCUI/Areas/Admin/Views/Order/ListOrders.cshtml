@@ -1,4 +1,4 @@
-﻿
+﻿@model ListAdminOrderPageVM
 @{
     ViewBag.Title = "ListOrders";
 }
@@ -12,7 +12,6 @@
                 <tr>
                     <th>ID</th>
                     <th>Kullanıcı ismi</th>
-                    <th class="hidden-phone">Adres</th>
                     <th class="hidden-phone">TotalPrice</th>
                     <th class="hidden-phone">Status</th>
                     <th class="hidden-phone">Yaratma Tarihi</th>
@@ -30,7 +29,6 @@
                     <tr class="gradeX">
                         <td>@item.ID</td>
                         <td>@item.UserName</td>
-                        <td class="hidden-phone">@item.Adress</td>
                         <td class="center hidden-phone">@item.TotalPrice</td>
                         <td class="center hidden-phone">@item.Status</td>
                         <td class="center hidden-phone">@item.CreatedDate</td>
@@ -38,7 +36,7 @@
                         <td class="center hidden-phone">@item.ModifiedDate</td>
                         <td class="center hidden-phone">@Html.ActionLink("Delete", "DeleteOrder", new { id = item.ID }, new { @class = "btn btn-danger" })</td>
                         <td class="center hidden-phone">@Html.ActionLink("Güncelle", "UpdateOrder", new { id = item.ID }, new { @class = "btn btn-warning" })</td>
-                        <td class="center hidden-phone">@Html.ActionLink("OrderEkle", "AddOrder", new { id = item.ID }, new { @class = "btn btn-primary" })</td>
+                        <td class="center hidden-phone">@Html.ActionLink("Detail", "ListOrderDetails", new { id = item.ID }, new { @class = "btn btn-primary" })</td>
 
                     </tr>
                 }

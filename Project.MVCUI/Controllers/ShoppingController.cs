@@ -1,18 +1,23 @@
 ﻿using PagedList;
 using Project.BLL.GenericRepository.ConcRep;
+using Project.COMMON.Tools;
 using Project.ENTITIES.Enums;
 using Project.ENTITIES.Models;
+using Project.MVCUI.AuthenticationClasses;
 using Project.MVCUI.Models.PageVMs;
 using Project.MVCUI.Models.ShoppingTools;
 using Project.VM.PureVMs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
 namespace Project.MVCUI.Controllers
 {
+    [MemberAuthentication]
     public class ShoppingController : Controller
     {
         ProductRepository _pRep;
@@ -107,6 +112,84 @@ namespace Project.MVCUI.Controllers
             }
             return RedirectToAction("CartPage");
         }
+        public ActionResult ConfirmOrder()
+        {
+            AppUser curentUser;
+            if (Session["member"] != null)
+            {
+                curentUser = Session["member"] as AppUser;
+            }
+            return View();
+        }
+        //http://localhost:58604/api/Payment/RecivePayment
+        [HttpPost]
+        public ActionResult ConfirmOrder(OrderPageVM orderPageVM)
+        {
+            bool sonuc;
+            Cart sepet = Session["scart"] as Cart;
+            orderPageVM.PaymentRequestModel.ShoppingPrice = sepet.TotalPrice;
+
+            using (HttpClient client = new HttpClient()) // HttpClient biziz
+            {
+                client.BaseAddress = new Uri("http://localhost:58604/api/");
+                Task<HttpResponseMessage> postTask = client.PostAsJsonAsync("Payment/RecivePayment",orderPageVM.PaymentRequestModel);
+                HttpResponseMessage result;
+                try
+                {
+                    result = postTask.Result;
+                }
+                catch (Exception ex)
+                {
+                    TempData["baglantiRed"] = "Banka Baglantiyi reddetti";
+                    return RedirectToAction("ShoppingList");
+                }
+                if (result.IsSuccessStatusCode) sonuc = true;
+                else sonuc = false;
+
+                if (sonuc)
+                {
+                    AppUser kullanici = Session["member"] as AppUser;
+                    // orderPageVM.Order.UserID = kullanici.ID;
+                    Order o = new Order
+                    {
+                        AppUserID = kullanici.ID,
+                        TotalPrice = sepet.TotalPrice,
+                        ShippingAddress = orderPageVM.Order.ShippingAdress
+                    };
+                    _oRep.Add(o);
+                    foreach (CartItem item in sepet.Sepetim)
+                    {
+                        OrderDetail od = new OrderDetail();
+                        od.OrderID = o.ID;
+                        od.ProductID = item.ID;
+                        od.TotalPrice = item.SubTotal;
+                        od.Quantity = item.Amount;
+                        _odRep.Add(od);
+
+                        Product stoktanDusurulecek = _pRep.Find(item.ID);
+                        stoktanDusurulecek.UnitsInStock -= item.Amount;
+                        _pRep.Update(stoktanDusurulecek);
+                    }
+                    TempData["odeme"] = "Siparişiniz bize ulasmıstır...Tesekkür ederiz";
+
+                   MailService.Send(o.AppUser.Email, body: $"Siparişiniz basarıyla alındı{orderPageVM.Order.TotalPrice}"); //Kullanıcıya aldıgı ürünleri de Mail yoluyla gönderin...
+                    
+
+                    Session.Remove("scart");
+                    return RedirectToAction("ShoppingList");
+                }
+                else
+                {
+                    Task<string> s = result.Content.ReadAsStringAsync();
+                    TempData["sorun"] = s;
+                    return RedirectToAction("ShoppingList");
+                }
+            }
+               
+        }
+
+
+        
 
     }
 }

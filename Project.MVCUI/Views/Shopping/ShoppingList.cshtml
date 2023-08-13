@@ -7,18 +7,19 @@
     <!-- page start-->
     <div class="row">
 
+        
         <div class="col-md-3">
             <section class="panel">
                 <header class="panel-heading">
                     Category
                 </header>
                 <div class="panel-body">
-                    <ul class="nav prod-cat">
-                        @foreach (CategoryVM item in Model.Categories)
-                        {
-                            <li style="padding-top:30px">@Html.ActionLink(item.CategoryName, "ShoppingList", new { categoryID = item.ID }, new { @class = "btn btn-primary" })</li>
-                        }
-                    </ul>
+                   <ul class="nav prod-cat">
+                       @foreach(CategoryVM item in Model.Categories)
+                       {
+                           <li style="padding-top:30px">@Html.ActionLink(item.CategoryName, "ShoppingList", new { categoryID = item.ID }, new { @class = "btn btn-primary" })</li>
+                       }
+                   </ul>
                 </div>
             </section>
         </div>
@@ -31,17 +32,12 @@
                         <ul class="pagination pagination-sm pro-page-list">
                             @if (TempData["catID"] != null)
                             {
-
-                                <li> @Html.PagedListPager(Model.PageProducts, page => Url.Action("ShoppingList", new { page, categoryID = TempData["catID"] })) </li>
+                                <li>@Html.PagedListPager(Model.PageProducts, page => Url.Action("ShoppingList", new { page, categoryID = TempData["catID"] }))</li>
                             }
                             else
                             {
-
-                                <li>@Html.PagedListPager(Model.PageProducts, page => Url.Action("ShoppingList", new { page }))</li>
+                                <li>@Html.PagedListPager(Model.PageProducts, page => Url.Action("ShoppingList", new { page}))</li>
                             }
-
-
-
                         </ul>
                     </div>
                 </div>
@@ -50,42 +46,28 @@
             <div class="row product-list">
                 @foreach (ProductVM item in Model.PageProducts)
                 {
-
                     <div class="col-md-4">
                         <section class="panel">
                             <div class="pro-img-box">
                                 @if (item.ImagePath == null || item.ImagePath == "3" || item.ImagePath == "2" || item.ImagePath.Contains("nightlife"))
                                 {
-
-                                    <img src="~/Pictures/thumbnail_5.jpg" alt="Resim yok" width="100" height="300" title="@item.ProductName" />
+                                    <img src="/Pictures/thumbnail_5.jpg" alt="Resim yok" width="100" height="300" title="@item.ProductName" />
                                 }
                                 else
                                 {
-
                                     <img src="@item.ImagePath" alt="Resim yok" width="100" height="300" title="@item.ProductName" />
                                 }
-
-
-
-                                <a href="@Url.Action("AddToCart", new {id =item.ID})" class="adtocart">
+                                <a href="@Url.Action("AddToCart",new {id = item.ID})" class="adtocart">
                                     <i class="icon-shopping-cart"></i>
                                 </a>
-
                             </div>
                             <div class="panel-body text-center">
-                                <h4>
-                                    <a href="#" class="pro-title" title="@item.ProductName">
-                                        @item.ProductName
-                                    </a>
-                                </h4>
+                                <h4 class="pro-title">@item.ProductName</h4>
                                 <p class="price">$@item.UnitPrice</p>
                             </div>
                         </section>
                     </div>
                 }
-                
-
-
             </div>
         </div>
     </div>

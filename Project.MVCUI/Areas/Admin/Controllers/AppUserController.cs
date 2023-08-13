@@ -3,6 +3,7 @@ using Project.COMMON.Tools;
 using Project.ENTITIES.Models;
 using Project.MVCUI.Areas.Admin.Data.AdminPageVMs.AddUpdatePageVMs;
 using Project.MVCUI.Areas.Admin.Data.AdminPageVMs.ListPageVMs;
+using Project.MVCUI.AuthenticationClasses;
 using Project.VM.PureVMs;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ using System.Web.Mvc;
 
 namespace Project.MVCUI.Areas.Admin.Controllers
 {
+    [AdminAuthentication]
     public class AppUserController : Controller
     {
         // GET: Admin/AppUser

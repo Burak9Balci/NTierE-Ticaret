@@ -21,8 +21,7 @@
 </head>
 <body class="login-body">
     <div class="container">
-        <h1>@TempData["kullanıcıyok"]</h1>
-        <h1>@TempData["HesapAktifMi"]</h1>
+        <h1>@TempData["kullaniciyok"]</h1>
         @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { @class = "form-signin" }))
         {
             <br />
